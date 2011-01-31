@@ -142,8 +142,8 @@ void rfm22::init() {
 	write(0x3C, 'n');
 	write(0x3D, 'g');
 	
-	// Packets will have 2 bytes of real data
-	write(0x3E, 2);
+	// Packets will have 1 bytes of real data
+	write(0x3E, 1);
 	
 	// 4 bytes in header to recieve and check
 	write(0x3F, 's');
