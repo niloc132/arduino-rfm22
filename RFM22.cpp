@@ -47,9 +47,9 @@ void rfm22::setInterrupt(uint16_t interrupt, uint16_t is_on) {
 	// zero out the values we don't care about (probably improperly set)
 	//uint8_t important = high_is_on & high;
 	// combine the two sets and write back out
-	write(0x05, read(0x05) & (~high) | (high_is_on & high));
+	write(0x05, (read(0x05) & (~high)) | (high_is_on & high));
 	
-	write(0x06, read(0x06) & (~low)  | (low_is_on	 & low));
+	write(0x06, (read(0x06) & (~low))  | (low_is_on	 & low));
 }
 
 uint16_t rfm22::readAndClearInterrupts() {
