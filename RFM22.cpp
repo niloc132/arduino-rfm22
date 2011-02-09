@@ -28,6 +28,35 @@ void rfm22::write(uint8_t addr, uint8_t data) const {
 	digitalWrite(pin, HIGH);
 }
 
+void rfm22::read(uint8_t start_addr, uint8_t buf[], uint8_t len) {
+	//write ss low to start
+	digitalWrite(pin, LOW);
+
+	// make sure the msb is 0 so we do a read, not a write
+	start_addr &= 0x7F;
+	SPI.transfer(start_addr);
+	for (int i = 0; i < len; i++) {
+		buf[i] = SPI.transfer(0x00);
+	}
+
+	//write ss high to end
+	digitalWrite(pin, HIGH);
+}
+void rfm22::write(uint8_t start_addr, uint8_t data[], uint8_t len) {
+	//write ss low to start
+	digitalWrite(pin, LOW);
+
+	// make sure the msb is 1 so we do a write
+	start_addr |= 0x80;
+	SPI.transfer(start_addr);
+	for (int i = 0; i < len; i++) {
+		SPI.transfer(data[i]);
+	}
+
+	//write ss high to end
+	digitalWrite(pin, HIGH);
+}
+
 void rfm22::resetFIFO() {
 	write(0x08, 0x03);
 	write(0x08, 0x00);

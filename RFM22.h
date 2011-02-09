@@ -33,6 +33,9 @@ public:
 	uint8_t read(uint8_t addr) const;
 	void write(uint8_t addr, uint8_t data) const;
 	
+	void read(uint8_t start_addr, uint8_t buf[], uint8_t len);
+	void write(uint8_t start_addr, uint8_t data[], uint8_t len);
+
 	void setInterrupt(uint16_t interrupt, uint16_t isOn);
 	uint16_t readAndClearInterrupts();
 	void resetFIFO();
